@@ -4,21 +4,36 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        // GET: Movies/Random
-        public ActionResult Random()
+        private readonly List<Movie> movies = new List<Movie>
         {
-            var movie = new Movie() { Name = "Shrek!" };
-            return View(movie);
+            new Movie { Name = "Shrek", Id = 1},
+            new Movie { Name = "Wall-e", Id = 2}
+        };
+
+        public ActionResult All()
+        {
+            var viewModel = new AllMovieViewModel
+            {
+                Movies = movies
+            };
+
+            return View(viewModel);
         }
 
-        public ActionResult ByReleaseDate(int year, int month)
+        public ActionResult One(int id)
         {
-            return Content(year + "/" + month);
+            Movie movie = movies.First(p => p.Id == id);
+
+            if (movie == null)
+                return new HttpNotFoundResult();
+            else
+                return View(movie);
         }
     }
 }
