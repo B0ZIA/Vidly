@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -120,14 +127,63 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202107011219580_InitialModel.cs" />
+    <Compile Include="Migrations\202107011219580_InitialModel.designer.cs">
+      <DependentUpon>202107011219580_InitialModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041147332_AddIsSubscribeToCustomer.cs" />
+    <Compile Include="Migrations\202107041147332_AddIsSubscribeToCustomer.designer.cs">
+      <DependentUpon>202107041147332_AddIsSubscribeToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041152456_AddMembershipTypeToCustomer.cs" />
+    <Compile Include="Migrations\202107041152456_AddMembershipTypeToCustomer.designer.cs">
+      <DependentUpon>202107041152456_AddMembershipTypeToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041157484_RemoveAddMembershipTypeToCustomer.cs" />
+    <Compile Include="Migrations\202107041157484_RemoveAddMembershipTypeToCustomer.designer.cs">
+      <DependentUpon>202107041157484_RemoveAddMembershipTypeToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041201125_AddMembershipType.cs" />
+    <Compile Include="Migrations\202107041201125_AddMembershipType.designer.cs">
+      <DependentUpon>202107041201125_AddMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041203027_PopulateMembershipTypes.cs" />
+    <Compile Include="Migrations\202107041203027_PopulateMembershipTypes.designer.cs">
+      <DependentUpon>202107041203027_PopulateMembershipTypes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041216377_ApplayAnnotationsToCustomerName.cs" />
+    <Compile Include="Migrations\202107041216377_ApplayAnnotationsToCustomerName.designer.cs">
+      <DependentUpon>202107041216377_ApplayAnnotationsToCustomerName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041255303_AddNameToMembershipType.cs" />
+    <Compile Include="Migrations\202107041255303_AddNameToMembershipType.designer.cs">
+      <DependentUpon>202107041255303_AddNameToMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041258561_UpdateNameRecordsInMembershipType.cs" />
+    <Compile Include="Migrations\202107041258561_UpdateNameRecordsInMembershipType.designer.cs">
+      <DependentUpon>202107041258561_UpdateNameRecordsInMembershipType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041338262_AddBrithdayDateToCustomer.cs" />
+    <Compile Include="Migrations\202107041338262_AddBrithdayDateToCustomer.designer.cs">
+      <DependentUpon>202107041338262_AddBrithdayDateToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107041342492_PopulateOneBrithdayToCustomer.cs" />
+    <Compile Include="Migrations\202107041342492_PopulateOneBrithdayToCustomer.designer.cs">
+      <DependentUpon>202107041342492_PopulateOneBrithdayToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\MyDBContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AllCustomersViewModel.cs" />
     <Compile Include="ViewModels\AllMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +226,8 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Movies\All.cshtml" />
     <Content Include="Views\Movies\One.cshtml" />
+    <Content Include="Views\Customers\All.cshtml" />
+    <Content Include="Views\Customers\One.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -186,6 +244,41 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202107011219580_InitialModel.resx">
+      <DependentUpon>202107011219580_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041147332_AddIsSubscribeToCustomer.resx">
+      <DependentUpon>202107041147332_AddIsSubscribeToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041152456_AddMembershipTypeToCustomer.resx">
+      <DependentUpon>202107041152456_AddMembershipTypeToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041157484_RemoveAddMembershipTypeToCustomer.resx">
+      <DependentUpon>202107041157484_RemoveAddMembershipTypeToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041201125_AddMembershipType.resx">
+      <DependentUpon>202107041201125_AddMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041203027_PopulateMembershipTypes.resx">
+      <DependentUpon>202107041203027_PopulateMembershipTypes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041216377_ApplayAnnotationsToCustomerName.resx">
+      <DependentUpon>202107041216377_ApplayAnnotationsToCustomerName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041255303_AddNameToMembershipType.resx">
+      <DependentUpon>202107041255303_AddNameToMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041258561_UpdateNameRecordsInMembershipType.resx">
+      <DependentUpon>202107041258561_UpdateNameRecordsInMembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041338262_AddBrithdayDateToCustomer.resx">
+      <DependentUpon>202107041338262_AddBrithdayDateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107041342492_PopulateOneBrithdayToCustomer.resx">
+      <DependentUpon>202107041342492_PopulateOneBrithdayToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -220,7 +313,10 @@
       <ErrorText>Ten projekt zawiera odwołania do pakietów NuGet, których nie ma na tym komputerze. Użyj przywracania pakietów NuGet, aby je pobrać. Aby uzyskać więcej informacji, zobacz http://go.microsoft.com/fwlink/?LinkID=322105. Brakujący plik: {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
+  <Import Project="packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

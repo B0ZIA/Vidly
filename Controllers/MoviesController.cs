@@ -10,7 +10,7 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly List<Movie> movies = new List<Movie>
+        public readonly List<Movie> movies = new List<Movie>
         {
             new Movie { Name = "Shrek", Id = 1},
             new Movie { Name = "Wall-e", Id = 2}
@@ -28,7 +28,7 @@ namespace Vidly.Controllers
 
         public ActionResult One(int id)
         {
-            Movie movie = movies.First(p => p.Id == id);
+            Movie movie = movies.FirstOrDefault(p => p.Id == id);
 
             if (movie == null)
                 return new HttpNotFoundResult();

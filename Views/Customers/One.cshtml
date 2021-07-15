@@ -1,0 +1,18 @@
+﻿@model Vidly.Models.Customer
+
+@{
+    ViewBag.Title = "One";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    <li>Membership Type: @Model.MembershipType.Name</li>
+    @{
+        string date = Model.Brithday.ToString("yyyy/MM/dd");
+        if (date != "1900.01.01")
+        {
+            <li>Brithdate: @date</li>
+        }
+    }
+</ul>
